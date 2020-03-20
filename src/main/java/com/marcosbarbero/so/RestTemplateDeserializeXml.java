@@ -19,7 +19,6 @@ import org.springframework.web.client.RestTemplate;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.util.Collections;
 import java.util.List;
@@ -32,7 +31,6 @@ public class RestTemplateDeserializeXml {
 
     String response = """
             <ArrayOfReserveInfo xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://tempuri.org/">
-              <random>12345</random>
               <ReserveInfo>
                 <reserveId>8095727</reserveId>
                 <bookingNo>00232003310080957272</bookingNo>
@@ -62,53 +60,9 @@ public class RestTemplateDeserializeXml {
             </ArrayOfReserveInfo>
             """;
 
-    String generated = """
-            <?xml version="1.0" encoding="UTF-8"?>
-            <UserReservationDto>
-               <reserveInfo>
-                  <reserveId />
-                  <bookingNo>1234</bookingNo>
-                  <performanceId />
-                  <performance />
-                  <placeKr />
-                  <hallKr>aaaa</hallKr>
-                  <playYMD />
-                  <startHM />
-                  <dayName>Monday</dayName>
-                  <playNum />
-                  <scheCd />
-                  <reserveCnt />
-                  <reserveUser />
-                  <pinCode />
-                  <statusCd />
-                  <statusNm />
-                  <ticketAmt />
-                  <discountNm />
-                  <printYN />
-                  <payAmt />
-                  <typeCd />
-                  <typeName />
-                  <reserveUserId />
-                  <reserveDate />
-               </reserveInfo>
-            </UserReservationDto>
-            """;
-
     @PostMapping(value = "/xml", produces = MediaType.APPLICATION_XML_VALUE)
     public ResponseEntity<String> post() {
         return ResponseEntity.ok(response);
-    }
-
-    @PostMapping(value = "/xml-object", produces = MediaType.APPLICATION_XML_VALUE)
-    public ResponseEntity<UserReservationDto> postObject() {
-        UserReservationDto dto = new UserReservationDto();
-        ReserveInfoDto reserveInfo = new ReserveInfoDto();
-        reserveInfo.setBookingNo("1234");
-        reserveInfo.setDayName("Monday");
-        reserveInfo.setHallKr("aaaa");
-        dto.setReserveInfo(List.of(reserveInfo));
-
-        return ResponseEntity.ok(dto);
     }
 
     @Getter
@@ -117,8 +71,6 @@ public class RestTemplateDeserializeXml {
     @XmlAccessorType(XmlAccessType.FIELD)
     @ToString
     static class UserReservationDto {
-
-        private String random;
 
         @JacksonXmlElementWrapper(useWrapping = false)
         @JacksonXmlProperty(localName = "ReserveInfo")
