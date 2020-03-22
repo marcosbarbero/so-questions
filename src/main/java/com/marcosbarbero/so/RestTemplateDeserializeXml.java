@@ -107,7 +107,7 @@ public class RestTemplateDeserializeXml {
         private String reserveDate;
     }
 
-    @Component
+//    @Component
     static class Run implements CommandLineRunner {
 
         private final RestTemplate restTemplate = new RestTemplate();
