@@ -18,16 +18,12 @@ public class MultipleDataSourceProperties {
 
     @Data
     public static class UserDataSourceProperties {
-
         private HibernateProperties hibernate = new HibernateProperties();
-
     }
 
     @Data
     public static class ItemDataSourceProperties {
-
         private HibernateProperties hibernate = new HibernateProperties();
-
     }
 
     @Data
